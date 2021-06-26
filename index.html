@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Cypto Sentimental</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    
+</head>
+
+<body>
+  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="index.html">Crypto Sentiment</a>
+
+    <a id="searchbar" class="form-control form-control-dark w-100"></a>
+
+    <div class="dropdown" >
+      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" style="color: #FFFFFF">
+        <span data-feather="navigation-2"></span>
+          Navigate
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu"  style="background-color: #31363c; color: #FFFFFF; padding-left: 10px">
+        <li><a href="#searchAndUpdate">  <span data-feather="search"></span> Search</a></li>
+        <li><a href="#scores">  <span data-feather="clipboard"></span> Table</a></li>
+        <li><a href="#sentimentScore">  <span data-feather="pie-chart"></span> Charts</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="searchAndUpdate" >
+      <div class="row" style="margin: 10px">
+          <div class="container-fluid">
+              <div class="card mb-3">
+                  <div class="card-header">
+                    <span data-feather="bar-chart"></span>
+                    <b>Search and crytocurrency result display</b>
+                  </div>
+                  <div class="row">
+                      <div class="col-6">
+                          <form>
+                              <div class="grid-container">
+                                  <div class="grid-item-dogecoin">
+                                      <div class="form-check form-check-inline">
+                                          <label class="container">Dogecoin
+                                              <input type="checkbox" id="dogecoinCb" value="Dogecoin">
+                                              <span class="checkmark"></span>
+                                              <img src="./crypto image/dogeco.png"  style="height: 100px; width: 100px">
+                                          </label>
+                                      </div>
+                                  </div>
+                                  <div class="grid-item-bitcoin">
+                                      <div class="form-check form-check-inline" >
+                                          <label class="container">Bitcoin
+                                              <input type="checkbox" id="bitcoinCb" value="Bitcoin">
+                                              <span class="checkmark"></span>
+                                              <img src="./crypto image/bitcoin.png"  style="height: 100px; width: 100px">
+                                          </label>
+                                        </div>
+                                  </div>
+                                  <div class="grid-item-maplecoin">
+                                      <div class="form-check form-check-inline">
+                                          <label class="container">Cardano
+                                              <input type="checkbox" id="cardanoCb" value="Cardano">
+                                              <span class="checkmark"></span>
+                                              <img src="./crypto image/cardano.png"  style="height: 100px; width: 100px">
+                                          </label>
+                                        </div>
+                                  </div>
+                                  <div class="grid-item-ethereum">
+                                      <div class="form-check form-check-inline">
+                                          <label class="container">Ethereum
+                                              <input type="checkbox" id="ethereumCb" value="Ethereum">
+                                              <span class="checkmark"></span>
+                                              <img src="./crypto image/ethereum.png"  style="height: 100px; width: 100px">
+                                          </label>
+                                        </div>
+                                  </div>
+                                  <div class="grid-item-polkadot">
+                                      <div class="form-check form-check-inline">
+                                          <label class="container">Polkadot
+                                              <input type="checkbox" id="polkadotCb" value="Polkadot">
+                                              <span class="checkmark"></span>
+                                              <img src="./crypto image/polkadot.png"  style="height: 100px; width: 100px">
+                                          </label>
+                                        </div>
+                                  </div>
+                                  <div class="grid-item-monero">
+                                      <div class="form-check form-check-inline">
+                                          <label class="container">Monero
+                                              <input type="checkbox" id="moneroCb" value="Monero">
+                                              <span class="checkmark"></span>
+                                              <img src="./crypto image/monero.png"  style="height: 100px; width: 100px">
+                                          </label>
+                                        </div>
+                                  </div>
+                                  <div class="grid-item-recrawl">
+                                      <button type="button" class="btn btn-default" onclick="reCrawl()" style="background-color:#494e54; color: white; width:200px">Recrawl All Results</button>
+                                  </div>
+                                  <div class="grid-item-update">
+                                    <button type="button" class="btn btn-default" onclick="makeConnection()" style="background-color:#494e54; color: white; width:200px">Compare Results</button>
+                                </div>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="col-6" id="chartContainer">
+                              <canvas id="userSelectedChart"></canvas>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
+
+  <section id="scores">
+    <div class="row" style="margin: 10px">
+        <div class="container-fluid">
+            <div class="card mb-3">
+                <div class="card-header">
+                  <span data-feather="database"></span> <b>Score Table</b>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <!-- id="table-wrapper" -->
+                        <table class="table table-bordered table-striped" id="scoreTable" width="100%" cellspacing="0">
+                            <thead>
+                              <tr>
+                                  <th>Category</th>
+                                  <th>Score</th>
+                                  <th>Number of Records</th>
+                              </tr>
+                            </thead>
+                              <tr>
+                                <td>Bitcoin</td>
+                                <td>8.5</td>
+                                <td>102</td>
+                              </tr>
+                              <tr>
+                                <td>Dogecoin</td>
+                                <td>7.2</td>
+                                <td>23</td>
+                              </tr>
+                              <tr>
+                                <td>Polkadot </td>
+                                <td>5.7</td>
+                                <td>67</td>
+                              </tr>
+                              <tr>
+                                <td>Monero </td>
+                                <td>8.2</td>
+                                <td>82</td>
+                              </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <!--button for testing-->
+<!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <button type="button"  style="background-color: #31363c; color: #FFFFFF; width: 100%; display: block" onClick="makeConnection()">
+  
+    </button>
+  </div> -->
+
+<section id="sentimentScore">
+    <div class="row" style="margin: 10px">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-bottom: 25px">
+            <div class="card">
+                <h2 style='color:black'>Bitcoin Sentiment Score</h2>
+             <canvas id="BitcoinChart"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="card">
+                  <h2 style='color:black'>Dogecoin Sentiment Score</h2>
+               <canvas id="DogecoinChart"></canvas>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="card">
+                    <h2 style='color:black'>Polkadot Sentiment Score</h2>
+                 <canvas id="PolkadotChart"></canvas>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <div class="card">
+                      <h2 style='color:black'>Monero Sentiment Score</h2>
+                   <canvas id="MoneroChart"></canvas>
+                  </div>
+                </div>
+      </div>
+</section>
+
+    <!-- <main role="main" class="col-md-12 ml-sm-auto col-lg-12 px-md-12">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+    </main> -->
+
+    <script>
+
+        var xValues = ["Negative", "Neutral", "Positive"];
+        var yValues = [20, 34, 64];
+        var barColors = [
+          "#b91d47",
+          "#00aba9",
+          "#2b5797",
+          "#e8c3b9",
+          "#1e7145"
+        ];
+        
+        new Chart("BitcoinChart", {
+          type: "pie",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            title: {
+              display: false,
+              text: "Bitcoin Sentiment Score"
+            }
+          }
+        });
+        </script>
+
+<script>
+    var xValues = ["Negative", "Neutral", "Positive"];
+    var yValues = [10, 24, 44];
+    var barColors = [
+      "#b91d47",
+      "#00aba9",
+      "#2b5797",
+      "#e8c3b9",
+      "#1e7145"
+    ];
+    
+    new Chart("DogecoinChart", {
+      type: "pie",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        title: {
+          display: false,
+          text: "Dogecoin Sentiment Score"
+        }
+      }
+    });
+    </script>
+    <script>
+        var xValues = ["Negative", "Neutral", "Positive"];
+        var yValues = [32, 12, 56];
+        var barColors = [
+          "#b91d47",
+          "#00aba9",
+          "#2b5797",
+          "#e8c3b9",
+          "#1e7145"
+        ];
+        
+        new Chart("PolkadotChart", {
+          type: "pie",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            title: {
+              display: false,
+              text: "Polkadot Sentiment Score"
+            }
+          }
+        });
+        </script>
+        <script>
+            var xValues = ["Negative", "Neutral", "Positive"];
+            var yValues = [32, 12, 15];
+            var barColors = [
+              "#b91d47",
+              "#00aba9",
+              "#2b5797",
+              "#e8c3b9",
+              "#1e7145"
+            ];
+            
+            new Chart("MoneroChart", {
+              type: "pie",
+              data: {
+                labels: xValues,
+                datasets: [{
+                  backgroundColor: barColors,
+                  data: yValues
+                }]
+              },
+              options: {
+                title: {
+                  display: false,
+                  text: "Bitcoin Sentiment Score"
+                }
+              }
+            });
+            </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="dashboard.js"></script>
+        <script src="connection.js"></script>
+  </body>
+</html>
